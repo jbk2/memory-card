@@ -1,0 +1,36 @@
+#root {
+  padding: 2rem;
+}
+
+/* ################################ HEADER ################################ */
+
+header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 3rem;
+}
+
+header h1 {
+  margin: 0;
+  margin-left: 4rem;
+}
+
+header #scoreboard h4 {
+  margin: 0;
+  margin-right: 4rem;
+}
+
+/* ################################ GAMEBAORD ################################ */
+
+#image-grid {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.image-card img {
+  width: 25rem;
+  object-fit: cover;
+  height: 18rem;
+  border-radius: 10px;  
+}

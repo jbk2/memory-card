@@ -1,16 +1,13 @@
 import { useState, useEffect } from 'react'
 import GameBoard from './components/GameBoard.jsx'
 import Header from './components/Header.jsx'
-import './App.css'
+import '/src/assets/stylesheets/App.css'
 
 function App() {
   const [ score, setScore ] = useState(0)
   const [ images, setImages ] = useState([])
 
-  useEffect(() => {
-    console.log('Here are your images: ==>>', images);
-  }, [images]);
-
+  
   useEffect(() => {
     async function getImages() {
       try {
@@ -27,9 +24,12 @@ function App() {
         console.error(error)
       }
     }
-
     getImages();
   }, []);
+  
+  useEffect(() => {
+    console.log('Here are your images: ==>>', images);
+  }, [images]);
 
   return (
     <>

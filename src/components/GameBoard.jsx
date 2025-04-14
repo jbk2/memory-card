@@ -1,7 +1,13 @@
-export default function GameBoard() {
+import { ImageCard } from './ImageCard.jsx';
+
+export default function GameBoard({ images} ) {
   return(
     <div>
-      <h1>GameBoard Here</h1>
+      <div id="image-grid">
+        {images.map((src, i) => (
+          <ImageCard key={i} src={src} />
+        ))}
+      </div>
     </div>
   )
 }
