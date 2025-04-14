@@ -26,6 +26,12 @@ function App() {
     }
     getImages();
   }, []);
+
+  function shuffleImages() {
+    const oldImageArray = [...images];
+    const shuffledImageArray = oldImageArray.sort(() => Math.random() - 0.5);
+    setImages(shuffledImageArray);
+  }
   
   useEffect(() => {
     console.log('Here are your images: ==>>', images);
@@ -34,7 +40,7 @@ function App() {
   return (
     <>
       <Header score={score} />
-      <GameBoard images={images} />
+      <GameBoard images={images} shuffleImages={shuffleImages} />
     </>
   )
 }
