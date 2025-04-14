@@ -1,4 +1,4 @@
-# The Odin Project - React Course, [project 2](https://www.theodinproject.com/lessons/react-new-memory-card#project-solution): Memory Card Game
+# The Odin Project - React Course - [project 2](https://www.theodinproject.com/lessons/react-new-memory-card#project-solution); Memory Card Game
 
 ## General description
 
@@ -16,4 +16,5 @@ A simple memory card game where the user gets points for clicking each unique im
 - Open the browser and navigate to `http://localhost:5173/`
 
 ### Todo's
-- 
+- create a difficulty mode
+- improve styling
