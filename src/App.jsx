@@ -26,17 +26,18 @@ function App() {
     }
   }
 
-  function updateGame(e) {
-    const clickedImg = images.find((img) => img.id === e.target.id)
-    console.log('heres the slicked img:', clickedImg);
+  function shuffleArray(arr) {
+    return [...arr].sort(() => Math.random() - 0.5);
+  }
+
+  function updateGame(clickedId) {
+    const clickedImg = images.find((img) => img.id === clickedId)
     
     if(!clickedImg.clicked) {
-      const oldImages = [...images];
-      const newImages = oldImages.map((img) =>
-        img.id === e.target.id ? {...img, clicked: true}  : img
+      const updatedImages = images.map((img) =>
+        img.id === clickedId ? {...img, clicked: true} : img
       );
-      const shuffledNewImages = newImages.sort(() => Math.random() - 0.5)
-      setImages(shuffledNewImages);
+      setImages(shuffleArray(updatedImages));
       setCurrentScore((s) => s + 1 );
     } else if (clickedImg.clicked) {
       if (bestScore < currentScore) { setBestScore(currentScore) };
