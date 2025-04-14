@@ -4,43 +4,59 @@ import Header from './components/Header.jsx'
 import '/src/assets/stylesheets/App.css'
 
 function App() {
-  const [ score, setScore ] = useState(0)
+  const [ currentScore, setCurrentScore ] = useState(0)
+  const [ bestScore, setBestScore ] = useState(0)
   const [ images, setImages ] = useState([])
 
-  
-  useEffect(() => {
-    async function getImages() {
-      try {
-        const url = 'https://dog.ceo/api/breed/dachshund/images/random/8'
-        const response = await fetch(url)
-        
-        if (response.ok) {
-          const data = await response.json()
-          setImages(data.message); 
-        } else {
-          throw Error('response failed');
-        }
-      } catch(error) {
-        console.error(error)
+  async function getNewImages() {
+    try {
+      const url = 'https://dog.ceo/api/breed/dachshund/images/random/8'
+      const response = await fetch(url)
+      if (response.ok) {
+        const data = await response.json();
+        const imgArray = data.message;
+        const imageObjects = imgArray.map((url) => {
+          const uuid = crypto.randomUUID();
+          return { id: uuid, url: url, clicked: false }
+        })
+        setImages(imageObjects);
       }
+    } catch(error) {
+      console.error(error);
     }
-    getImages();
-  }, []);
+  }
 
-  function shuffleImages() {
-    const oldImageArray = [...images];
-    const shuffledImageArray = oldImageArray.sort(() => Math.random() - 0.5);
-    setImages(shuffledImageArray);
+  function updateGame(e) {
+    const clickedImg = images.find((img) => img.id === e.target.id)
+    console.log('heres the slicked img:', clickedImg);
+    
+    if(!clickedImg.clicked) {
+      const oldImages = [...images];
+      const newImages = oldImages.map((img) =>
+        img.id === e.target.id ? {...img, clicked: true}  : img
+      );
+      const shuffledNewImages = newImages.sort(() => Math.random() - 0.5)
+      setImages(shuffledNewImages);
+      setCurrentScore((s) => s + 1 );
+    } else if (clickedImg.clicked) {
+      if (bestScore < currentScore) { setBestScore(currentScore) };
+      getNewImages();
+      setCurrentScore(0)
+    }
   }
   
+  useEffect(() => {
+    getNewImages();
+  }, []);
+
   useEffect(() => {
     console.log('Here are your images: ==>>', images);
   }, [images]);
 
   return (
     <>
-      <Header score={score} />
-      <GameBoard images={images} shuffleImages={shuffleImages} />
+      <Header currentScore={currentScore} bestScore={bestScore} />
+      <GameBoard images={images} updateGame={updateGame} />
     </>
   )
 }
